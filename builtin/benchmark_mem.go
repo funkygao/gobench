@@ -1,19 +1,19 @@
 package main
 
 import (
-    "fmt"
-    "testing"
+	"fmt"
+	"testing"
 )
 
 func main() {
-    fmt.Println("mem", testing.Benchmark(benchmarkMemAccess))
+	fmt.Println("mem", testing.Benchmark(benchmarkMemAccess))
 }
 
 func benchmarkMemAccess(b *testing.B) {
-    slice := make([]int, 10)
-    slice[4] = 10
-    b.StartTimer()
-    for i:=0; i<b.N; i++ {
-        _ = slice[4]
-    }
+	slice := make([]int, 10)
+	slice[4] = 10
+	b.StartTimer()
+	for i := 0; i < b.N; i++ {
+		_ = slice[4] // FIXME it will always hit L1 cache
+	}
 }

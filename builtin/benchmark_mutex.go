@@ -1,19 +1,20 @@
 package main
 
 import (
-    "fmt"
-    "sync"
-    "testing"
+	"github.com/funkygao/gobench/util"
+	"sync"
+	"testing"
 )
 
 func main() {
-    fmt.Printf("%s\n", testing.Benchmark(benchmarkMutexLock).String())
+	b := testing.Benchmark(benchmarkMutexLock)
+	util.ShowBenchResult("mutex.lock+unlock", b)
 }
 
 func benchmarkMutexLock(b *testing.B) {
-    var lock sync.Mutex
-    for i:=0; i<b.N; i++ {
-        lock.Lock()
-        lock.Unlock()
-    }
+	var lock sync.Mutex
+	for i := 0; i < b.N; i++ {
+		lock.Lock()
+		lock.Unlock()
+	}
 }

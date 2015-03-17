@@ -1,17 +1,19 @@
 package main
 
 import (
-    "fmt"
-    "testing"
+	"github.com/funkygao/gobench/util"
+	"testing"
 )
 
 func main() {
-    fmt.Println(testing.Benchmark(benchmarkSliceAppend))
+	b := testing.Benchmark(benchmarkSliceAppend)
+	util.ShowBenchResult("slice.append", b)
 }
 
 func benchmarkSliceAppend(b *testing.B) {
-    slice := make([]int, 0)
-    for i:=0; i<b.N; i++ {
-        slice = append(slice, i)
-    }
+	b.ReportAllocs()
+	slice := make([]int, 0)
+	for i := 0; i < b.N; i++ {
+		slice = append(slice, i)
+	}
 }

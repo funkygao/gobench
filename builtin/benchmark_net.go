@@ -1,21 +1,22 @@
 package main
 
 import (
-    "fmt"
-    "testing"
-    "net"
+	"github.com/funkygao/gobench/util"
+	"net"
+	"testing"
 )
 
 func main() {
-    fmt.Printf("%s\n", testing.Benchmark(benchmarkDialAndClose).String())
+	b := testing.Benchmark(benchmarkDialAndClose)
+	util.ShowBenchResult("net.Dial+Close", b)
 }
 
 func benchmarkDialAndClose(b *testing.B) {
-    for i:=0; i<b.N; i++ {
-        conn, e := net.Dial("tcp", "localhost:80")
-        if e != nil {
-            panic(e)
-        }
-        conn.Close()
-    }
+	for i := 0; i < b.N; i++ {
+		conn, e := net.Dial("tcp", "localhost:80")
+		if e != nil {
+			panic(e)
+		}
+		conn.Close()
+	}
 }

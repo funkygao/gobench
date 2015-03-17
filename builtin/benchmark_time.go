@@ -9,6 +9,8 @@ import (
 func main() {
 	b := testing.Benchmark(benchmarkNow)
 	util.ShowBenchResult("time.Now", b)
+	b = testing.Benchmark(benchmarkTimeSince)
+	util.ShowBenchResult("time.Since", b)
 	b = testing.Benchmark(benchmarkSleep)
 	util.ShowBenchResult("time.Sleep", b)
 }
@@ -22,5 +24,12 @@ func benchmarkNow(b *testing.B) {
 func benchmarkSleep(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		time.Sleep(0)
+	}
+}
+
+func benchmarkTimeSince(b *testing.B) {
+	t1 := time.Now()
+	for i := 0; i < b.N; i++ {
+		time.Since(t1)
 	}
 }

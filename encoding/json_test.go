@@ -1,4 +1,4 @@
-package benchmark
+package encoding
 
 import (
 	"encoding/json"
@@ -38,17 +38,23 @@ type jsonLine struct {
 }
 
 func BenchmarkJSONEncodeAndDecode(b *testing.B) {
+	b.ReportAllocs()
+	var v []byte
 	for i := 0; i < b.N; i++ {
-		jsonB := EncodeJSON(in)
-		DecodeJSON(jsonB)
+		v = EncodeJSON(in)
+		DecodeJSON(v)
 	}
+	b.SetBytes(int64(len(v)))
 }
 
 func BenchmarkMsgPackEncodeAndDecode(b *testing.B) {
+	b.ReportAllocs()
+	var v []byte
 	for i := 0; i < b.N; i++ {
-		b := EncodeMsgPack(in)
-		DecodeMsgPack(b)
+		v = EncodeMsgPack(in)
+		DecodeMsgPack(v)
 	}
+	b.SetBytes(int64(len(v)))
 }
 
 func BenchmarkJsonUnmarshalInterface(b *testing.B) {

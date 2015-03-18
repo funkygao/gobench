@@ -13,6 +13,8 @@ func main() {
 	util.ShowBenchResult("time.Since", b)
 	b = testing.Benchmark(benchmarkSleep)
 	util.ShowBenchResult("time.Sleep", b)
+	b = testing.Benchmark(benchmarkTimeUnixNano)
+	util.ShowBenchResult("time.Now.UnixNano", b)
 }
 
 func benchmarkNow(b *testing.B) {
@@ -31,5 +33,12 @@ func benchmarkTimeSince(b *testing.B) {
 	t1 := time.Now()
 	for i := 0; i < b.N; i++ {
 		time.Since(t1)
+	}
+}
+
+func benchmarkTimeUnixNano(b *testing.B) {
+	b.ReportAllocs()
+	for i := 0; i < b.N; i++ {
+		time.Now().UnixNano()
 	}
 }

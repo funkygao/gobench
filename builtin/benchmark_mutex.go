@@ -7,11 +7,11 @@ import (
 )
 
 func main() {
-	b := testing.Benchmark(benchmarkMutexLock)
+	b := testing.Benchmark(benchmarkMutexLockThenUnlock)
 	util.ShowBenchResult("mutex.lock+unlock", b)
 }
 
-func benchmarkMutexLock(b *testing.B) {
+func benchmarkMutexLockThenUnlock(b *testing.B) {
 	var lock sync.Mutex
 	for i := 0; i < b.N; i++ {
 		lock.Lock()

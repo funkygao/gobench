@@ -15,7 +15,7 @@ func main() {
 		buf = s
 		fmt.Printf("%5d %s\n", buf, testing.Benchmark(benchmarkChan).String())
 	}
-	util.ShowBenchResult("chan select default", testing.Benchmark(benchmarkChanSelect))
+	util.ShowBenchResult("chan select default", testing.Benchmark(benchmarkChanSelectDefault))
 }
 
 func benchmarkChan(b *testing.B) {

@@ -3,6 +3,7 @@
 package main
 
 import (
+	"github.com/funkygao/golib/gcvis"
 	"github.com/funkygao/golib/gofmt"
 	"github.com/funkygao/golib/terminal"
 	"log"
@@ -16,6 +17,9 @@ func makeBuffer() []byte {
 }
 
 func main() {
+	gcvis.Launch(":8990", "gc", 2)
+	log.Println("gcvis on :8990")
+
 	pool := make([][]byte, 20)
 
 	ticker := time.NewTicker(time.Second)
@@ -25,7 +29,6 @@ func main() {
 	if th == 0 {
 		th = 10
 	}
-	log.Println(th)
 
 	var m runtime.MemStats
 

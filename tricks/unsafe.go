@@ -22,7 +22,7 @@ func main() {
 	var j *int64 = (*int64)(unsafe.Pointer(uintptr(unsafe.Pointer(v)) + uintptr(unsafe.Sizeof(int32(0)))))
 	*j = int64(763)
 	v.Println()
-	var k *int64 = (*int64)(unsafe.Pointer(uintptr(unsafe.Pointer(v)) + uintptr(2*4)))
+	var k *int64 = (*int64)(unsafe.Pointer(uintptr(unsafe.Pointer(v)) + uintptr(unsafe.Alignof(v.j))))
 	*k = int64(763)
 	v.Println()
 	fmt.Println(i, j, &v.j, k)

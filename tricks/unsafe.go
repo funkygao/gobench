@@ -25,7 +25,10 @@ func main() {
 	var k *int64 = (*int64)(unsafe.Pointer(uintptr(unsafe.Pointer(v)) + uintptr(unsafe.Alignof(v.j))))
 	*k = int64(763)
 	v.Println()
-	fmt.Println(i, j, &v.j, k)
+	var m *int64 = (*int64)(unsafe.Pointer(uintptr(unsafe.Pointer(v)) + unsafe.Offsetof(v.j)))
+	*m = 5699
+	v.Println()
+	fmt.Println(i, j, &v.j, k, m)
 
 	// j doesn't work while k works, because of golang padding
 }
